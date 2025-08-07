@@ -17,8 +17,7 @@ public class Patient {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private UUID id = UUID.randomUUID();
 
     @NotNull
     private String name;
