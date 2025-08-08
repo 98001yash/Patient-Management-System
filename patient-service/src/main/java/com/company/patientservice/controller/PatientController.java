@@ -5,6 +5,8 @@ import com.company.patientservice.dto.PatientRequestDto;
 import com.company.patientservice.dto.PatientResponseDto;
 import com.company.patientservice.dto.validators.CreatePatientValidationGroup;
 import com.company.patientservice.service.PatientService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.groups.Default;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/patients")
+@Tag(name = "Patient", description = "API for managing Patients")
 public class PatientController {
 
     private final PatientService patientService;
@@ -23,12 +26,14 @@ public class PatientController {
     }
 
     @GetMapping
+    @Operation(summary = "Get Patients")
     public ResponseEntity<List<PatientResponseDto>> getPatients(){
         List<PatientResponseDto> patients = patientService.getPatients();
         return ResponseEntity.ok().body(patients);
     }
 
     @PostMapping
+    @Operation(summary = "Create a new Patient")
     public ResponseEntity<PatientResponseDto> createPatient(
             @Validated({Default.class, CreatePatientValidationGroup.class})
             @RequestBody PatientRequestDto patientRequestDTO) {
@@ -40,6 +45,7 @@ public class PatientController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a new Patient")
     public ResponseEntity<PatientResponseDto> updatePatient(@PathVariable UUID id,
                                                             @Validated({Default.class}) @RequestBody PatientRequestDto patientRequestDto){
 
@@ -49,6 +55,7 @@ public class PatientController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a Patient")
     public ResponseEntity<Void> deletePatient(@PathVariable UUID id){
         patientService.deletePatient(id);
         return ResponseEntity.noContent().build();
