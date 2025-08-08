@@ -29,7 +29,9 @@ public class Patient {
     @NotNull
     private String address;
 
+    @NotNull
     private LocalDate dateOfBirth;
+    @NotNull
     private LocalDate registeredDate;
 
 
