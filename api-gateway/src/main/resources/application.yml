@@ -1,0 +1,28 @@
+spring:
+  application:
+  name: api-gateway
+
+
+server:
+  port: 8080
+
+
+
+  cloud:
+    gateway:
+      routes:
+        - id: patient-service-route
+          uri: http://patent-service:9010
+          predicates:
+            - Path=/api/patents/**
+          filters:
+            - StripPrefix=1
+
+
+        - id: api-docs-patient-route
+          uri: http://patient-service:9010
+          predicates:
+            - Path=/api-docs/patients
+          filters:
+            - rewrite-path=/api-docs/patients,/v3/api-docs
+
