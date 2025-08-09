@@ -1,20 +1,17 @@
-spring:
-  application:
-  name: api-gateway
-
 
 server:
   port: 8080
 
 
 
+spring:
   cloud:
     gateway:
       routes:
         - id: patient-service-route
-          uri: http://patent-service:9010
+          uri: http://patient-service:9010
           predicates:
-            - Path=/api/patents/**
+            - Path=/api/patients/**
           filters:
             - StripPrefix=1
 
