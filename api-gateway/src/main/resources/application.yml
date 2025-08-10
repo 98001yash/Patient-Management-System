@@ -23,3 +23,11 @@ spring:
           filters:
             - RewritePath=/api-docs/patients,/v3/api-docs
 
+
+        - id: auth-service-route
+          uri: http://auth-service:9050
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+
